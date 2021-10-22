@@ -1,23 +1,17 @@
 import logo from './logo.svg';
 import './App.css';
+import FilmesEmCartaz from './components/filmesemcartaz/filmesemcartaz';
+import FilmesProximos from './components/filmesproximos/filmesproximos';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <article>
+        <h2>Filmes em Cartaz</h2>
+        <FilmesEmCartaz/>
+        <h2>Próximos Lançamentos</h2>
+        <FilmesProximos />
+      </article>
     </div>
   );
 }

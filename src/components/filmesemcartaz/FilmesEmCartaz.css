@@ -1,0 +1,11 @@
+#filmesemcartaz {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  flex-direction: row;
+}
+
+#filmesemcartaz > :nth-child(n) {
+    margin: 10px;
+}

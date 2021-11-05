@@ -1,4 +1,4 @@
-
+import './FilmesProximos.css'
 import { Component } from 'react';
 import FilmeCard from '../filmecard/filmecard';
 
@@ -21,10 +21,10 @@ export default class FilmesProximos extends Component {
 
     render() {
         return (
-            <section>
+            <section id="filmesproximos">
                 {
-                    this.state.filmeLista.map(function (filme) {
-                        return <FilmeCard filme={filme} />
+                    this.state.filmeLista.map(function (filme, index) {
+                        return <FilmeCard key={index} filme={filme} />
                     })
                 }
             </section>

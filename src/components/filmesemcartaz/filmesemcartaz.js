@@ -1,6 +1,12 @@
-import './FilmesEmCartaz.css'
+import React, { useCallback } from 'react';
+
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
 import { Component } from 'react';
 import FilmeCard from '../filmecard/filmecard';
+
+import './FilmesEmCartaz.css';
 
 /**
  * Stateless - Sem estado, apenas props. (HTTP)
@@ -17,6 +23,10 @@ export default class FilmesEmCartaz extends Component {
         console.log(erro);
     }
 
+    onFalhaAoEnviarComentario(erro) {
+        console.log(erro);
+    }
+
     /*componentDidUpdate() {
         console.log("Atualizado com sucesso!");
     }*/
@@ -27,13 +37,49 @@ export default class FilmesEmCartaz extends Component {
         .then(json => this.setState({ filmeLista: json.results }), this.onFalhaCarregamentoFilmesEmCartaz);
     }
 
+    enviarComentario(event) {
+        event.preventDefault();
+        const requestOptions = {
+            method: 'POST',
+            header: {'Content-Type': 'application/json'},
+            body: {"comentario": ""}
+        }
+
+        fetch("https://httpbin.org/anything", requestOptions)
+            .then(response => response.json(), this.onFalhaAoEnviarComentario)
+            .then(json => this.setState({ comentarioLista: json.json }), this.onFalhaAoEnviarComentario);
+    }
+    
+
+    comentar(filmeId) {
+        let MySwal = withReactContent(Swal);
+        MySwal.fire({
+            html: (
+                <div>
+                    <h3>Enviar Comentário para o Filme {filmeId}</h3>
+                    <form onSubmit={this.enviarComentario}>                    
+                        <input type="text" />
+                        <input type="submit"/>
+                    </form>
+                </div>
+            ),
+            background: '#6c60c3',
+            backdrop: 'rgba(110, 97, 198, .1)',
+            showConfirmButton: false,
+            showCloseButton: true,  
+        });
+    }
+
     render() {
         return (
             <section id="filmesemcartaz">
                 {
-                    this.state.filmeLista.map(function (filme, index) {
-                        return <FilmeCard key={index} filme={filme} />
-                    })
+                    this.state.filmeLista.map(
+                        function (filme, index) {
+                            return <FilmeCard key={index} filme={filme} comentar={this.comentar} />
+                        }, 
+                        this
+                    )
                 }
             </section>
         )

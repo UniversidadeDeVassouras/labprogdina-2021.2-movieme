@@ -19,13 +19,20 @@ export default class FilmesProximos extends Component {
         .then(response => this.setState({filmeLista : response.results}), this.onCarregamentoFilmesProximosFalhou);
     }   
 
+    comentar(filmeId) {
+        console.log("Exibindo o filme " + filmeId)
+    }
+
     render() {
         return (
             <section id="filmesproximos">
                 {
-                    this.state.filmeLista.map(function (filme, index) {
-                        return <FilmeCard key={index} filme={filme} />
-                    })
+                    this.state.filmeLista.map(
+                        function (filme, index) {
+                            return <FilmeCard key={index} filme={filme} comentar={this.comentar} />
+                        },
+                        this
+                    )
                 }
             </section>
         )

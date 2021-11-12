@@ -61,6 +61,7 @@ export default class FilmesEmCartaz extends Component {
     
     comentar(filmeId) {
         let MySwal = withReactContent(Swal);
+        //MySwal.bind(this)
         MySwal.fire({
             html: (
                 <div>
@@ -75,6 +76,19 @@ export default class FilmesEmCartaz extends Component {
             backdrop: 'rgba(110, 97, 198, .1)',
             showConfirmButton: false,
             showCloseButton: true,  
+            /*
+            preConfirm: (login) => {
+                return fetch(`//api.github.com/users/${login}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(response.statusText)
+                        }
+                        return response.json()
+                })
+                .catch(error => {
+                    Swal.showValidationMessage(`Request failed: ${error}`)
+            })
+            */
         });
     }
 
@@ -92,7 +106,7 @@ export default class FilmesEmCartaz extends Component {
             </section>
         )
     }
-
+    
     /**
      * minhaFuncao = (resolve, reject) => {
             //..Executo algum processamento

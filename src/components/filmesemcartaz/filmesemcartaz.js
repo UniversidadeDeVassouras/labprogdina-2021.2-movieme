@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useState } from 'react';
 
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
@@ -12,7 +12,7 @@ import './FilmesEmCartaz.css';
  * Stateless - Sem estado, apenas props. (HTTP)
  * Statefull - Guardam estado e tem props.
  */
-export default class FilmesEmCartaz extends Component {
+export default class FilmesEmCartaz extends Component { 
 
     constructor(props) {
         super(props);
@@ -42,15 +42,23 @@ export default class FilmesEmCartaz extends Component {
         const requestOptions = {
             method: 'POST',
             header: {'Content-Type': 'application/json'},
-            body: {"comentario": ""}
+            body: {"comentario": ""} //this.state.comentario
         }
 
         fetch("https://httpbin.org/anything", requestOptions)
             .then(response => response.json(), this.onFalhaAoEnviarComentario)
             .then(json => this.setState({ comentarioLista: json.json }), this.onFalhaAoEnviarComentario);
+        /*
+            formData = new FormData(formularioHtml);
+            object = {}
+            formData.forEach(function(value, key){
+                object[key] = value;
+            });
+            var json = JSON.stringify(object); 
+            //Colocar o json no body
+        */
     }
     
-
     comentar(filmeId) {
         let MySwal = withReactContent(Swal);
         MySwal.fire({
@@ -58,7 +66,7 @@ export default class FilmesEmCartaz extends Component {
                 <div>
                     <h3>Enviar Comentário para o Filme {filmeId}</h3>
                     <form onSubmit={this.enviarComentario}>                    
-                        <input type="text" />
+                        <input type="text" /*onChange={this.setState({comentario: ""})}*/ />
                         <input type="submit"/>
                     </form>
                 </div>
